@@ -1,0 +1,81 @@
+%%fakesection
+\documentclass{article}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{soul}
+\usepackage{fullpage}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{pifont}
+
+
+\let\Item\item
+\renewcommand\item{\normalcolor\Item}
+
+\newcommand\ml{\color[RGB]{153, 150, 204}} %may be later
+\newcommand\later{\color[RGB]{153, 204, 150}} %later
+\newcommand\nn{\color[RGB]{124, 124, 255}} %no need to do
+\newcommand\done{\color[RGB]{129, 180, 185} \ding{52} }
+\newcommand\now{\color[RGB]{255, 0, 0}} %current
+
+\begin{document}
+
+
+
+\section{keys}
+\begin{itemize}
+  \item \ml may be later
+  \item \done done
+  \item \nn no need to do
+  \item \now current 
+\end{itemize}
+
+t[...] for tags
+
+t[priorety unsorted] or t[pu]-- not sorted in priority yet
+
+\section{doing}
+\subsection{correlation function skeleton}
+created on Wed Jan 29 15:37:09 PST 2014
+\label{sub:correlation_function_skeleton}
+\begin{itemize}
+  \item something
+\end{itemize}
+% subsection correlation_function_skeleton (end)
+\subsection{tdivr for harmonic oscillator}
+created on Mon Jan 27 13:12:51 PST 2014
+\label{sub:tdivr_for_harmonic_oscillator}
+not gonna work for harmonic. i'll just do the flux one.
+\begin{itemize}
+  \item \now calculate Wigner functions in the beginning and the end
+  \item sample from the product of the Wigner functions
+  \item monodromy matrices
+  \item pre-exponential component
+  \item calculate action
+  \item sample two trajectories
+  \item coherent state overlaps
+  \item normalization factor
+  \item average over trajectories
+\end{itemize}
+% subsection tdivr_for_harmonic_oscillator (end)
+\section{to do}
+\subsection{add bath}
+created on Mon Jan 27 13:15:00 PST 2014
+\label{sub:add_bath}
+
+% subsection add_bath (end)
+\subsection{morse pot}
+created on Mon Jan 27 13:15:11 PST 2014
+\label{sub:morse_pot}
+
+% subsection morse_pot (end)
+\section{to do priority unsorted}
+\section{plan}
+\section{past} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Newtonian dynamics for harmonic oscillator}
+done Mon Jan 27 14:51:54 PST 2014
+created on Mon Jan 27 13:12:15 PST 2014
+\label{sub:newtonian_dynamics_for_harmonic_oscillator}
+
+% subsection newtonian_dynamics_for_harmonic_oscillator (end)
+\section{notes}
+\end{document}
