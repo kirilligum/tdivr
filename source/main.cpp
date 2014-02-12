@@ -17,8 +17,11 @@
 #include <boost/range/numeric.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/iterator/zip_iterator.hpp>
-#include <ro/ro.h>
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/density.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
 //#include <boost/math/constants/constants.hpp>
+#include <ro/ro.h>
 
 #include "potential/harmonic_oscillator.hpp"
 #include "ode_step.hpp"
@@ -30,27 +33,46 @@
 
 int main(int argc, char const *argv[]) {
   using namespace std;
+  using namespace std::placeholders;
+  //using namespace boost;
+  using namespace boost::accumulators;
   namespace b = boost;
+  typedef accumulator_set<double, features<tag::density> > acc;
+  typedef b::iterator_range<std::vector<std::pair<double, double> >::iterator > histogram_type;
+
   cout << " hi \n";
   size_t world_rank=1, seed = 1;
   std::default_random_engine gen(world_rank+seed);
   ohmic_bath_param  bp; std::vector<double> initial_bath,bw,bc;
   tie(initial_bath,bw,bc) = make_bath(bp,gen);
-  //copy(bw,ostream_iterator<double>(cout," "));
   ofstream ibo("initial_bath.txt");
-  //for (size_t i = 0; i < bw.size(); ++i) {
-    //ibo << bw[i] << setw(15) << bc[i] << setw(15) << initial_bath[2*i] << setw(15) << initial_bath[2*i+1] << endl;
-  //}
-  std::for_each(
-      b::make_zip_iterator(b::make_tuple(
-          std::begin(bw),std::begin(bc)
-          )),
-      b::make_zip_iterator(b::make_tuple(
-          std::end(bw),std::end(bc)
-          )),
-        [&ibo](b::tuple<const double &,const double &> t){
-        ibo << t.get<0>() << "  " << t.get<1>() << "\n";}
-      );
+  for (size_t i = 0; i < bw.size(); ++i) {
+    ibo << bw[i] << setw(15) << bc[i] << setw(15) << initial_bath[2*i] << setw(15) << initial_bath[2*i+1] << endl;
+  }
+  acc myAccumulatorp( tag::density::num_bins = 20, tag::density::cache_size = 10);
+  acc myAccumulatorq( tag::density::num_bins = 20, tag::density::cache_size = 10);
+  for (size_t i = 0; i < initial_bath.size(); ++i) {
+    std::ref(myAccumulatorp)(initial_bath[2*i]);
+    std::ref(myAccumulatorq)(initial_bath[2*i+1]);
+  }
+  //std::for_each(lines.begin(), lines.end(),std::ref(myAccumulator));
+  histogram_type histp = density(myAccumulatorp);
+  histogram_type histq = density(myAccumulatorq);
+  double totalp = 0.0;
+  for( int i = 0; i < histp.size(); i++ )
+  {
+    std::cout << "Bin lower bound: " << histp[i].first << ", Value: " << histp[i].second << std::endl;
+    totalp += histp[i].second;
+  }
+  std::cout << "totalp: " << totalp << std::endl; //should be 1 (and it is)
+  double totalq = 0.0;
+  for( int i = 0; i < histp.size(); i++ )
+  {
+    std::cout << "Bin lower bound: " << histp[i].first << ", Value: " << histp[i].second << std::endl;
+    totalq += histp[i].second;
+  }
+  std::cout << "totalq: " << totalq << std::endl; //should be 1 (and it is)
+
 
   //pcet_param sp;
   //auto initial_state = make_initial_state(sp,gen);
