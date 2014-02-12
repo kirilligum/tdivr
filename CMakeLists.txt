@@ -51,6 +51,7 @@ include_directories( "/usr/include/lua5.1/")
 #include_directories($LUA_INCLUDE_DIR)
 
 include_directories("/usr/include/eigen3")
+include_directories("lib")
 
 SET(CMAKE_SOURCE_DIR ../source)
 
@@ -64,7 +65,8 @@ add_custom_command ( OUTPUT ctags
 add_executable(../main
   #source/lua_read.cpp
   #source/read_config.cpp
-  #source/dfdv_num.cpp
+  source/dfdv_num.cpp
+  source/make_bath.cpp
   source/ode_step.cpp
   source/main.cpp
   #ctags
