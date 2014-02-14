@@ -7,4 +7,4 @@
 #include "pcet_param.hpp"
 
 
-std::vector<double> make_initial_state(pcet_param sp, std::default_random_engine &gen) ;
+std::vector<double> make_initial_state(pcet_param &sp, std::default_random_engine &gen) ;

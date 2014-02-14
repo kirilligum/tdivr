@@ -5,7 +5,7 @@
 
 struct ohmic_bath_param {
   units_const u;
-  std::size_t modes=1000;
+  std::size_t modes=100;
   //double temperature_kelvin=300, 
          //wc_wn=600, 
          //bath_mass_au=1836.1, 

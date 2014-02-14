@@ -20,12 +20,12 @@
 
 #include "electronic_aa_cart.hpp"
 #include "ohmic_bath_param.hpp"
-//#include "pcet_param.hpp"
+#include "pcet_param.hpp"
 #include "make_bath.hpp"
 
 //typedef std::vector<double> vd; typedef std::vector<std::vector<double>> vvd; typedef std::vector<std::vector<std::vector<double>>> vvvd;
 
-std::vector<double> make_initial_state(pcet_param sp, std::default_random_engine &gen) {
+std::vector<double> make_initial_state(pcet_param &sp, std::default_random_engine &gen) {
   using namespace std;
   std::uniform_real_distribution<double> ran_pi(0.0,2*M_PI);
   double q1 = ran_pi(gen);

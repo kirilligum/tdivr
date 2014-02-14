@@ -65,9 +65,13 @@ add_custom_command ( OUTPUT ctags
 add_executable(../main
   #source/lua_read.cpp
   #source/read_config.cpp
+  source/electronic_aa_cart.cpp
+  source/histogram_bath_pq.cpp
+  source/make_initial_state.cpp
   source/dfdv_num.cpp
   source/make_bath.cpp
   source/ode_step.cpp
+  source/boltzmann_path_integral.cpp
   source/main.cpp
   #ctags
   )
